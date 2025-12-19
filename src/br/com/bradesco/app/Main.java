@@ -1,29 +1,33 @@
 package br.com.bradesco.app;
 
-import br.com.bradesco.model.*;
+import br.com.bradesco.exception.NegocioException;
+import br.com.bradesco.model.Conta;
+import br.com.bradesco.service.ClienteService;
+import br.com.bradesco.service.ContaService;
 
 public class Main {
-    
+
     public static void main(String[] args) {
 
-        Cliente cliente = new Cliente(1, "Lucas Santos", "123.456.789-00");
+        ClienteService clienteService = new ClienteService();
+        ContaService contaService = new ContaService();
 
-        Conta conta = new ContaCorrente(
-            "987654-3", 
-            "0001", 
-            cliente, 
-            1000.0
-        );
+        try {
+            var cliente1 = clienteService.cadastrar("Lucas Santos", "111.111.111-11");
+            var cliente2 = clienteService.cadastrar("Nathaly Oliveira", "222.222.222-22");
 
-        conta.depositar(1000);
-        conta.sacar(250);
+            Conta c1 = contaService.criarContaCorrente("1001", "0001", cliente1, 500);
+            Conta c2 = contaService.criarContaPoupanca("1002", "0001", cliente2);
 
-        System.out.println("Cliente: " + conta.getCliente().getNome());
-        System.out.println("Tipo de Conta: " + conta.getTipoConta());
-        System.out.println("Saldo Atual: R$ " + conta.getSaldo());
+            contaService.depositar("1001", 1000);
+            contaService.transferir("1001", "1002", 300);
+            contaService.sacar("1002", 100);
 
-        System.out.println("\nExtrato:");
-        conta.getHistoricoTransacoes().forEach(System.out::println);
+            System.out.println("Saldo conta 1001: R$ " + c1.getSaldo());
+            System.out.println("Saldo conta 1002: R$ " + c2.getSaldo());
 
+        } catch (NegocioException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
     }
 }
