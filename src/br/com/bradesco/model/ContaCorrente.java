@@ -9,6 +9,10 @@ public class ContaCorrente extends Conta {
         this.limiteChequeEspecial = limite;
     }
 
+    public double getLimiteChequeEspecial() {
+        return limiteChequeEspecial;
+    }
+
     @Override
     public String getTipoConta() {
         return "Conta Corrente";

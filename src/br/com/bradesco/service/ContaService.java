@@ -4,6 +4,8 @@ import br.com.bradesco.exception.ContaNaoEncontradaException;
 import br.com.bradesco.exception.NegocioException;
 import br.com.bradesco.exception.SaldoInsuficienteException;
 import br.com.bradesco.model.*;
+import br.com.bradesco.repository.ContaRepository;
+import br.com.bradesco.repository.TransacaoRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,12 @@ import java.util.List;
 public class ContaService {
     
     private List<Conta> contas = new ArrayList<>();
+    private ContaRepository repository = new ContaRepository();
+    private TransacaoRepository transacaoRepository = new TransacaoRepository();
+
+    public ContaService(ClienteService clienteService) {
+        this.contas = repository.listar(clienteService.listar());
+    }
 
     public Conta criarContaCorrente(String numero, String agencia, Cliente cliente, double limite) {
         Conta conta = new ContaCorrente(numero, agencia, cliente, limite);
@@ -41,6 +49,7 @@ public class ContaService {
         }
         Conta conta = buscarPorNumero(numero);
         conta.depositar(valor);
+        repository.salvar(contas);
     }
 
     public void sacar(String numero, double valor) {
@@ -53,6 +62,7 @@ public class ContaService {
             throw new SaldoInsuficienteException();
         }
         conta.sacar(valor);
+        repository.salvar(contas);
     }
 
     public void transferir(String origem, String destino, double valor) {
@@ -69,6 +79,7 @@ public class ContaService {
 
         contaOrigem.sacar(valor);
         contaDestino.depositar(valor);
+        repository.salvar(contas);
     }
 
 }

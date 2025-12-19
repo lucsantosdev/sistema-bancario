@@ -45,6 +45,11 @@ public abstract class Conta {
         return numero;
     }
 
+    public String getAgencia() {
+        return agencia;
+    }
+
+
     public Cliente getCliente() {
         return cliente;
     }

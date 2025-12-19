@@ -11,7 +11,7 @@ public class Main {
 
     private static final Scanner scanner = new Scanner(System.in);
     private static final ClienteService clienteService = new ClienteService();
-    private static final ContaService contaService = new ContaService();
+    private static final ContaService contaService = new ContaService(clienteService);
 
     public static void main(String[] args) {
 
