@@ -1,5 +1,8 @@
 package br.com.bradesco.model;
 
+import br.com.bradesco.exception.NegocioException;
+import br.com.bradesco.util.ValidadorInput;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +15,16 @@ public abstract class Conta {
     protected List<Transacao> historicoTransacoes;
 
     public Conta(String numero, String agencia, Cliente cliente) {
+        if (!ValidadorInput.validarNumeroConta(numero)) {
+            throw new NegocioException("Número de conta inválido. Deve conter entre 4 e 10 dígitos.");
+        }
+        if (!ValidadorInput.validarAgencia(agencia)) {
+            throw new NegocioException("Âgência inválida. Deve conter entre 3 e 5 dígitos.");
+        }
+        if (cliente == null) {
+            throw new NegocioException("Cliente não pode ser nulo.");
+        }
+        
         this.numero = numero;
         this.agencia = agencia;
         this.cliente = cliente;
@@ -38,6 +51,13 @@ public abstract class Conta {
     }
 
     public double getSaldo() {
+        return saldo;
+    }
+
+    /**
+     * Retorna o saldo disponível para saque (saldo + limite se conta corrente)
+     */
+    public double getSaldoDisponivel() {
         return saldo;
     }
 

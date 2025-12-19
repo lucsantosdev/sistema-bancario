@@ -32,6 +32,10 @@ public class Transacao {
         return descricao;
     }
 
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     @Override
     public String toString() {
         return dataHora + " - " + tipo + " - R$ " + valor + " - " + descricao;
