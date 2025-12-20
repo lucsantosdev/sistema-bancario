@@ -4,7 +4,9 @@
 ![cover](image.png)
 
 ## 🚀 Descrição do Projeto
-Este projeto trata-se de uma aplicação de console desenvolvida em **Java puro** que simula um sistema bancário real (em homenagem ao Banco Bradesco), permitindo o gerenciamento de clientes, contas e transações, com persistência em arquivos e aplicação de regras de negócio.
+Este projeto trata-se de uma aplicação de console desenvolvida em **Java puro** que simula um sistema bancário (em homenagem ao Banco Bradesco), permitindo o gerenciamento de clientes, contas e transações, com persistência em arquivos e aplicação de regras de negócio.
+
+> ⚠️ **Observação:** Este é um projeto fictício com fins educacionais e de portfólio. Não possui vínculo com o Banco Bradesco real.
 
 ## 🎯 Objetivo
 Demonstrar domínio dos fundamentos da linguagem Java e da Programação Orientada a Objetos, modelando um problema real e implementando uma solução organizada e funcional, concluindo assim o Desafio de Projeto do bootcamp.
